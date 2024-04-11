@@ -12,12 +12,12 @@ class Routes {
   static final cadastroCandidato = RouteDefinition(
     routePath: RoutePaths.cadastroCandidato,
     component: cadastro_candidato.CadastroCandidatoPageNgFactory,
-    useAsDefault: true,
   );
 
   static final listaCandidato = RouteDefinition(
     routePath: RoutePaths.listaCandidato,
     component: lista_candidato.ListaCandidatoPageNgFactory,
+    useAsDefault: true,
   );
 
   static final publicRoutes = <RouteDefinition>[

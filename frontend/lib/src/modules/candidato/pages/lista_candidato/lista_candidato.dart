@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:meu_proj_frontend/frontend.dart';
 import 'package:meu_proj_frontend/src/modules/candidato/services/candidato_service.dart';
 import 'package:meu_proj_frontend/src/shared/models/candidato.dart';
 import 'package:ngdart/angular.dart';
@@ -12,10 +15,31 @@ import 'package:ngrouter/angular_router.dart';
 )
 class ListaCandidatoPage implements OnActivate {
   final CandidatoService _candidatoService = CandidatoService();
-
+  final Router _router;
   List<Candidato> candidatos = [];
+
+  ListaCandidatoPage(this._router);
   @override
   Future<void> onActivate(RouterState? previous, RouterState current) async {
+    listar();
+  }
+
+  void listar() async {
     candidatos = await _candidatoService.listar();
+  }
+
+  void atualizar(Candidato item) {
+    _router.navigateByUrl(RoutePaths.cadastroCandidato
+        .toUrl(parameters: {'id': item.id.toString()}));
+  }
+
+  void remover(Candidato item) async {
+    try {
+      await _candidatoService.remover(item);
+      listar();
+      window.alert('Usuario removido, $item');
+    } catch (e) {
+      window.alert('Erro ao remover, $e');
+    }
   }
 }
